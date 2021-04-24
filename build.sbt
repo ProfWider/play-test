@@ -14,7 +14,7 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0
 herokuAppName in Compile := "play-app-test"
 
 herokuProcessTypes in Compile := Map(
-  "web" -> "target/universal/stage/bin/play-app-test -Dhttp.port=$PORT",
+  "web" -> "target/universal/scripts/bin/play-app-test -Dhttp.port=$PORT",
 )
 
 // Adds additional packages into Twirl
