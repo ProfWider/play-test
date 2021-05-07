@@ -10,10 +10,14 @@ scalaVersion := "2.13.5"
 
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
-libraryDependencies += "com.typesafe.play" %% "play-slick" % "5.0.0"
 libraryDependencies += "org.postgresql" % "postgresql" % "42.2.5"
 
-herokuProcessTypes in Compile := Map(
+libraryDependencies ++= Seq(
+  "com.typesafe.play" %% "play-slick" % "5.0.0",
+  "com.typesafe.play" %% "play-slick-evolutions" % "5.0.0"
+)
+
+Compile / herokuProcessTypes := Map(
   "web" -> "target/universal/stage/bin/play-app-test -Dhttp.port=$PORT",
 )
 
