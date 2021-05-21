@@ -1,0 +1,22 @@
+@import model.Produkt
+@(produkte: Seq[Produkt])
+
+@main("Welcome to Play") {
+  <h1>Willkommen bei spezieller Programmierung!</h1>
+  <div id="produkte">
+    <h2>Suche nach Preis</h2>
+
+    <form action="/search/byprice" method="POST">
+      <input name="price" type="number" placeholder="price"/>
+      <input type="submit"/>
+    </form>
+
+    <h2>Hier sind Deine Ergebnisse</h2>
+    <table>
+      <tr><th>Name</th><th>Preis</th></tr>
+      @for(prod <- produkte){
+        <tr><td>@prod.name</td><td>@prod.price</td></tr>
+      }
+    </table>
+  </div>
+}

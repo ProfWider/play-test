@@ -17,6 +17,7 @@ class HomeController @Inject() (produktDao: ProduktDAO, controllerComponents: Co
 
   def index() = Action.async {
     produktDao.all().map { case (produkte) => Ok(views.html.index(produkte)) }
+    //Ok(views.html.index(produktDao.all()))
   }
 
   def env() = Action { implicit request: Request[AnyContent] =>
