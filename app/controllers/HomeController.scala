@@ -7,6 +7,7 @@ import javax.inject._
 import play.api._
 import play.api.data.Form
 import play.api.data.Forms.{mapping, number, text}
+import play.api.libs.json.{Format, Json}
 import play.api.mvc._
 
 import scala.concurrent.ExecutionContext
@@ -14,6 +15,8 @@ import scala.concurrent.ExecutionContext
 @Singleton
 class HomeController @Inject() (produktDao: ProduktDAO, controllerComponents: ControllerComponents)
                                (implicit executionContext: ExecutionContext) extends AbstractController(controllerComponents) {
+
+  implicit val produktFormat: Format[Produkt] = Json.format[Produkt]
 
   def index() = Action.async {
     produktDao.all().map { case (produkte) => Ok(views.html.index(produkte)) }
@@ -23,6 +26,10 @@ class HomeController @Inject() (produktDao: ProduktDAO, controllerComponents: Co
   def env() = Action { implicit request: Request[AnyContent] =>
     Ok("Nothing to see here")
     //Ok(System.getenv("JDBC_DATABASE_URL"))
+  }
+
+  def json() = Action.async {
+    produktDao.all().map{ case (produkte) => Ok(Json.toJson(produkte)) }
   }
 
   val produktForm = Form(
